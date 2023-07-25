@@ -1,5 +1,4 @@
-import SmartShell from "./src/connect.ts";
-
+import SmartShell from "./src/shell.ts";
 
 export {
     SmartShell
