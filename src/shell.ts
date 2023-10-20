@@ -1,7 +1,5 @@
-import { Api } from "./api/api.ts";
-
-
-
+import { Api } from "./api.ts";
+import { utils as util } from "./utils.ts";
 
 export default class SmartShell {
 
@@ -18,6 +16,20 @@ export default class SmartShell {
      * `@xl-soft/smartshell-io-deno`
      */
     public api: Api
+
+
+    /**
+     * # `utils`
+     * 
+     * Object with utils
+     * 
+     * ``` ts
+     *  const utils = await shell.utils
+     * ```
+     * `@xl-soft/smartshell-io-deno`
+     */
+    public utils = util
+
     /**
      * # `SmartShell` class
      * 
@@ -25,15 +37,17 @@ export default class SmartShell {
      * 
      * ``` ts
      *  const shell = await new SmartShell({
-     *      login: '79999999999',
+     *      login: '9998887766',
      *      password: 'pasw0rd',
-     *      club_id: 1111
+     *      club_id: 1111,
+     *      regional_code: 7,
+     *      host: 'billing'
      *  })
      * ```
      * `@xl-soft/smartshell-io-deno`
      */
-    constructor(private auth: Authform) {
-        this.api = new Api('billing', this.auth.login, this.auth.password, this.auth.club_id)
+    constructor(private shell: ShellUser) {
+        this.api = new Api(this.shell.host, this.shell.login, this.shell.password, this.shell.club_id, this.shell.regional_code)
     }
 
     // * ---------------------------- Auth ----------------------------
@@ -44,9 +58,9 @@ export default class SmartShell {
      * Returns access token for connection
      * 
      * ``` ts
-     *  const response = await shell.getAccessToken()
+     * console.log(await shell.getAccessToken())
      * ```
-     * `@xl-soft/smartshell-io-deno/auth`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getAccessToken() {
         return await this.api.getAccessToken()
@@ -60,9 +74,9 @@ export default class SmartShell {
      * Returns list of users authorized clubs
      * 
      * ``` ts
-     *  const response = await shell.getClubs()
+     * console.log(await shell.getClubs())
      * ```
-     * `@xl-soft/smartshell-io-deno/clubs`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getClubs() {
         return await this.api.getClubs()
@@ -74,9 +88,9 @@ export default class SmartShell {
      * Returns authorized club data by id
      * 
      * ``` ts
-     *  const response = await shell.getClubById(1234)
+     * console.log(await shell.getClubById(1234))
      * ```
-     * `@xl-soft/smartshell-io-deno/clubs`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getClubById(id: number) {
         const clubs = await this.api.getClubs()
@@ -91,9 +105,9 @@ export default class SmartShell {
      * Returns all goods from club shop
      * 
      * ``` ts
-     *  const response = await shell.getGoods()
+     * console.log(await shell.getGoods())
      * ```
-     * `@xl-soft/smartshell-io-deno/shop`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getGoods() {
         return await this.api.getGoods()
@@ -105,9 +119,9 @@ export default class SmartShell {
      * Returns specific good from club shop
      * 
      * ``` ts
-     *  const response = await shell.getGoodByName('Cola')
+     * console.log(await shell.getGoodByName('Cola'))
      * ```
-     * `@xl-soft/smartshell-io-deno/shop`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getGoodByName(name: string) {
         const goods = await this.api.getGoods()
@@ -120,9 +134,9 @@ export default class SmartShell {
      * Returns good from club shop by barcode
      * 
      * ``` ts
-     *  const response = await shell.getGoodByBarcode('501234576421')
+     * console.log(await shell.getGoodByBarcode('501234576421'))
      * ```
-     * `@xl-soft/smartshell-io-deno/shop`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getGoodByBarcode(ean: string) {
         const goods = await this.api.getGoods()
@@ -135,9 +149,9 @@ export default class SmartShell {
      * Returns all services from club shop
      * 
      * ``` ts
-     *  const response = await shell.getServices()
+     * console.log(await shell.getServices())
      * ```
-     * `@xl-soft/smartshell-io-deno/shop`
+     * `@xl-soft/smartshell-io-deno/`
      */  
     public async getServices() {
         return await this.api.getServices()
@@ -149,9 +163,9 @@ export default class SmartShell {
      * Returns specific service from club shop
      * 
      * ``` ts
-     *  const response = await shell.getServiceByName('Hookah')
+     * console.log(await shell.getServiceByName('Hookah'))
      * ```
-     * `@xl-soft/smartshell-io-deno/shop`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getServiceByName(name: string) {
         const goods = await this.api.getServices()
@@ -164,9 +178,9 @@ export default class SmartShell {
      * Returns service from club shop by barcode
      * 
      * ``` ts
-     *  const response = await shell.getServiceByBarcode('501234576421')
+     * console.log(await shell.getServiceByBarcode('501234576421'))
      * ```
-     * `@xl-soft/smartshell-io-deno/shop`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getServiceByBarcode(ean: string) {
         const goods = await this.api.getServices()
@@ -181,9 +195,9 @@ export default class SmartShell {
      * Returns all promocodes from club
      * 
      * ``` ts
-     *  const response = await shell.getPromocodes()
+     * console.log(await shell.getPromocodes())
      * ```
-     * `@xl-soft/smartshell-io-deno/promo`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getPromocodes() {
         return await this.api.getPromocodes()
@@ -195,9 +209,9 @@ export default class SmartShell {
      * Returns promocode data
      * 
      * ``` ts
-     *  const response = await shell.getPromocodeByName('SALE50')
+     * console.log(await shell.getPromocodeByName('SALE50'))
      * ```
-     * `@xl-soft/smartshell-io-deno/promo`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getPromocodeByName(name: string) {
         const promos =  await this.api.getPromocodes()
@@ -212,11 +226,11 @@ export default class SmartShell {
      * Returns full report from date and time to date and time.
      * 
      * ``` ts
-     *  const full = await shell.getStat()
-     *  const fromto = await shell.getStat('2023-07-20', 'CURRENT', 'TODAY', 'CURRENT')
-     *  const fromtonow = await shell.getStat('2023-07-20', 'CURRENT')
+     * console.log(await shell.getStat())
+     * console.log(await shell.getStat('2023-07-20', 'CURRENT', 'TODAY', 'CURRENT'))
+     * console.log(await shell.getStat('2023-07-20', 'CURRENT'))
      * ```
-     * `@xl-soft/smartshell-io-deno/stat`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getStat(        
         fromdate: DateAndNotations = '1970-01-01',
@@ -233,11 +247,11 @@ export default class SmartShell {
      * Returns goods report from date and time to date and time.
      * 
      * ``` ts
-     *  const full = await shell.getGoodsStat()
-     *  const fromto = await shell.getGoodsStat('2023-07-20', 'CURRENT', 'TODAY', 'CURRENT')
-     *  const fromtonow = await shell.getGoodsStat('2023-07-20', 'CURRENT')
+     * console.log(await shell.getGoodsStat())
+     * console.log(await shell.getGoodsStat('2023-07-20', 'CURRENT', 'TODAY', 'CURRENT'))
+     * console.log(await shell.getGoodsStat('2023-07-20', 'CURRENT'))
      * ```
-     * `@xl-soft/smartshell-io-deno/stat`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getGoodsStat(        
         fromdate: DateAndNotations = '1970-01-01',
@@ -255,11 +269,11 @@ export default class SmartShell {
      * Returns services report from date and time to date and time.
      * 
      * ``` ts
-     *  const full = await shell.getServicesStat()
-     *  const fromto = await shell.getServicesStat('2023-07-20', 'CURRENT', 'TODAY', 'CURRENT')
-     *  const fromtonow = await shell.getServicesStat('2023-07-20', 'CURRENT')
+     * console.log(await shell.getServicesStat())
+     * console.log(await shell.getServicesStat('2023-07-20', 'CURRENT', 'TODAY', 'CURRENT'))
+     * console.log(await shell.getServicesStat('2023-07-20', 'CURRENT'))
      * ```
-     * `@xl-soft/smartshell-io-deno/stat`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getServicesStat(
         fromdate: DateAndNotations = '1970-01-01',
@@ -277,11 +291,11 @@ export default class SmartShell {
      * Returns щrders report from date and time to date and time.
      * 
      * ``` ts
-     *  const full = await shell.getOrdersStat()
-     *  const fromto = await shell.getOrdersStat('2023-07-20', 'CURRENT', 'TODAY', 'CURRENT')
-     *  const fromtonow = await shell.getOrdersStat('2023-07-20', 'CURRENT')
+     * console.log(await shell.getOrdersStat())
+     * console.log(await shell.getOrdersStat('2023-07-20', 'CURRENT', 'TODAY', 'CURRENT'))
+     * console.log(await shell.getOrdersStat('2023-07-20', 'CURRENT'))
      * ```
-     * `@xl-soft/smartshell-io-deno/stat`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getOrdersStat(
         fromdate: DateAndNotations = '1970-01-01',
@@ -299,11 +313,11 @@ export default class SmartShell {
      * Returns seances report from date and time to date and time.
      * 
      * ``` ts
-     *  const full = await shell.getSeancesStat()
-     *  const fromto = await shell.getSeancesStat('2023-07-20', 'CURRENT', 'TODAY', 'CURRENT')
-     *  const fromtonow = await shell.getSeancesStat('2023-07-20', 'CURRENT')
+     * console.log(await shell.getSeancesStat())
+     * console.log(await shell.getSeancesStat('2023-07-20', 'CURRENT', 'TODAY', 'CURRENT'))
+     * console.log(await shell.getSeancesStat('2023-07-20', 'CURRENT'))
      * ```
-     * `@xl-soft/smartshell-io-deno/stat`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getSeancesStat(
         fromdate: DateAndNotations = '1970-01-01',
@@ -321,11 +335,11 @@ export default class SmartShell {
      * Returns deposit report from date and time to date and time.
      * 
      * ``` ts
-     *  const full = await shell.getDepositStat()
-     *  const fromto = await shell.getDepositStat('2023-07-20', 'CURRENT', 'TODAY', 'CURRENT')
-     *  const fromtonow = await shell.getDepositStat('2023-07-20', 'CURRENT')
+     * console.log(await shell.getDepositStat())
+     * console.log(await shell.getDepositStat('2023-07-20', 'CURRENT', 'TODAY', 'CURRENT'))
+     * console.log(await shell.getDepositStat('2023-07-20', 'CURRENT'))
      * ```
-     * `@xl-soft/smartshell-io-deno/stat`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getDepositStat(
         fromdate: DateAndNotations = '1970-01-01',
@@ -343,11 +357,11 @@ export default class SmartShell {
      * Returns money report from date and time to date and time.
      * 
      * ``` ts
-     *  const full = await shell.getMoneyStat()
-     *  const fromto = await shell.getMoneyStat('2023-07-20', 'CURRENT', 'TODAY', 'CURRENT')
-     *  const fromtonow = await shell.getMoneyStat('2023-07-20', 'CURRENT')
+     * console.log(await shell.getMoneyStat())
+     * console.log(await shell.getMoneyStat('2023-07-20', 'CURRENT', 'TODAY', 'CURRENT'))
+     * console.log(await shell.getMoneyStat('2023-07-20', 'CURRENT'))
      * ```
-     * `@xl-soft/smartshell-io-deno/stat`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getMoneyStat(
         fromdate: DateAndNotations = '1970-01-01',
@@ -365,11 +379,11 @@ export default class SmartShell {
      * Returns revenue from date and time to date and time.
      * 
      * ``` ts
-     *  const full = await shell.getRevenueStat()
-     *  const fromto = await shell.getRevenueStat('2023-07-20', 'CURRENT', 'TODAY', 'CURRENT')
-     *  const fromtonow = await shell.getRevenueStat('2023-07-20', 'CURRENT')
+     * console.log(await shell.getRevenueStat())
+     * console.log(await shell.getRevenueStat('2023-07-20', 'CURRENT', 'TODAY', 'CURRENT'))
+     * console.log(await shell.getRevenueStat('2023-07-20', 'CURRENT'))
      * ```
-     * `@xl-soft/smartshell-io-deno/stat`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getRevenueStat(
         fromdate: DateAndNotations = '1970-01-01',
@@ -389,9 +403,9 @@ export default class SmartShell {
      * Returns club apps shortcuts
      * 
      * ``` ts
-     *  const response = await shell.getApps()
+     * console.log(await shell.getApps())
      * ```
-     * `@xl-soft/smartshell-io-deno/content`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getApps() {
         const shortcuts = await this.api.getShortcuts()
@@ -404,9 +418,9 @@ export default class SmartShell {
      * Returns club app shortcut
      * 
      * ``` ts
-     *  const response = await shell.getAppByName('Discord')
+     * console.log(await shell.getAppByName('Discord'))
      * ```
-     * `@xl-soft/smartshell-io-deno/content`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getAppByName(name: string) {
         const shortcuts = await this.api.getShortcuts()
@@ -420,9 +434,9 @@ export default class SmartShell {
      * Returns popular club apps shortcuts
      * 
      * ``` ts
-     *  const response = await shell.getPopularApps()
+     * console.log(await shell.getPopularApps())
      * ```
-     * `@xl-soft/smartshell-io-deno/content`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getPopularApps() {
         const shortcuts = await this.api.getShortcuts()
@@ -436,9 +450,9 @@ export default class SmartShell {
      * Returns club games shortcuts 
      * 
      * ``` ts
-     *  const response = await shell.getGames()
+     * console.log(await shell.getGames())
      * ```
-     * `@xl-soft/smartshell-io-deno/content`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getGames() {
         const shortcuts = await this.api.getShortcuts()
@@ -451,9 +465,9 @@ export default class SmartShell {
      * Returns club game shortcut
      * 
      * ``` ts
-     *  const response = await shell.getGameByName('Dota 2')
+     * console.log(await shell.getGameByName('Dota 2'))
      * ```
-     * `@xl-soft/smartshell-io-deno/content`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getGameByName(name: string) {
         const shortcuts = await this.api.getShortcuts()
@@ -467,7 +481,7 @@ export default class SmartShell {
      * Returns popular club games shortcuts
      * 
      * ``` ts
-     *  const response = await shell.getPopularGames()
+     * console.log(await shell.getPopularGames())
      * ```
      * `@xl-soft/smartshell-io-deno/`
      */
@@ -485,9 +499,9 @@ export default class SmartShell {
      * Returns all club tariffs
      * 
      * ``` ts
-     *  const response = await shell.getTariffs()
+     * console.log(await shell.getTariffs())
      * ```
-     * `@xl-soft/smartshell-io-deno/tariffs`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getTariffs() {
         return await this.api.getTariffs()
@@ -499,9 +513,9 @@ export default class SmartShell {
      * Returns club tariff by name
      * 
      * ``` ts
-     *  const response = await shell.getTariffByName('Night')
+     * console.log(await shell.getTariffByName('Night'))
      * ```
-     * `@xl-soft/smartshell-io-deno/tariffs`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getTariffByName(name: string) {
         const tariffs = await this.api.getTariffs()
@@ -514,9 +528,9 @@ export default class SmartShell {
      * Returns all active at the current time club tariffs
      * 
      * ``` ts
-     *  const response = await shell.getActiveTariffs()
+     * console.log(await shell.getActiveTariffs())
      * ```
-     * `@xl-soft/smartshell-io-deno/tariffs`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getActiveTariffs() {
         const tariffs = await this.api.getTariffs()
@@ -529,9 +543,9 @@ export default class SmartShell {
      * Returns all active at the current time club tariffs that showed in shell
      * 
      * ``` ts
-     *  const response = await shell.getActiveUserTariffs()
+     * console.log(await shell.getActiveUserTariffs())
      * ```
-     * `@xl-soft/smartshell-io-deno/tariffs`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getActiveUserTariffs() {
         const tariffs = await this.api.getTariffs()
@@ -546,9 +560,9 @@ export default class SmartShell {
      * Returns user from login and password in constructor
      * 
      * ``` ts
-     *  const response = await shell.getConnectionUser()
+     * console.log(await shell.getConnectionUser())
      * ```
-     * `@xl-soft/smartshell-io-deno/users`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getConnectionUser() {
         return await this.api.getMe()
@@ -560,11 +574,11 @@ export default class SmartShell {
      * Returns users by search query
      * 
      * ``` ts
-     *  const userbynick = await shell.getUsersByQuery('XL Sof')
-     *  const userbylastdigits = await shell.getUsersByQuery('9999')
-     *  const userbylastname = await shell.getUsersByQuery('Torshin')
+     * console.log(await shell.getUsersByQuery('XL Sof'))
+     * console.log(await shell.getUsersByQuery('9999'))
+     * console.log(await shell.getUsersByQuery('Torshin'))
      * ```
-     * `@xl-soft/smartshell-io-deno/users`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getUsersByQuery(query: string) {
         return await this.api.getUsersByQuery(query)
@@ -576,9 +590,9 @@ export default class SmartShell {
      * Returns user by phone number
      * 
      * ``` ts
-     *  const response = await shell.getUserByPhone('79999999999')
+     * console.log(await shell.getUserByPhone('79999999999'))
      * ```
-     * `@xl-soft/smartshell-io-deno/users`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getUserByPhone(phone: string) {
         const users = await this.api.getUsersByQuery(phone)
@@ -592,15 +606,15 @@ export default class SmartShell {
      * Returns user with current session on host
      * 
      * ``` ts
-     *  const response = await shell.getUserByHostName('host-24')
+     * console.log(await shell.getUserByHostName('PC-24'))
      * ```
-     * `@xl-soft/smartshell-io-deno/users`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getUserByHostName(name: string) {
         const hosts = await this.api.getHosts()
         const host = hosts.find(o => o.alias === name);
         if (host?.sessions[0].user === null) return { error: 'No one using this host' }
-        const users = await this.api.getUsersByQuery(String(host?.sessions[0].user.phone))
+        const users = await this.api.getUsersByQuery(String(host?.sessions[0]!.user?.phone))
         return users[0]
     }
 
@@ -612,9 +626,9 @@ export default class SmartShell {
      * Returns all user payments by phone
      * 
      * ``` ts
-     *  const response = await shell.getPaymentsByPhone('79999999999')
+     * console.log(await shell.getPaymentsByPhone('79999999999'))
      * ```
-     * `@xl-soft/smartshell-io-deno/payments`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getPaymentsByPhone(phone: string) {
         const users = await this.api.getUsersByQuery(phone)
@@ -628,9 +642,9 @@ export default class SmartShell {
      * Returns all user payments with card by phone
      * 
      * ``` ts
-     *  const response = await shell.getCardPaymentsByPhone('79999999999')
+     * console.log(await shell.getCardPaymentsByPhone('79999999999'))
      * ```
-     * `@xl-soft/smartshell-io-deno/payments`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getCardPaymentsByPhone(phone: string) {
         const users = await this.api.getUsersByQuery(phone)
@@ -645,9 +659,9 @@ export default class SmartShell {
      * Returns all user payments with cash by phone
      * 
      * ``` ts
-     *  const response = await shell.getCashPaymentsByPhone('79999999999')
+     * console.log(await shell.getCashPaymentsByPhone('79999999999'))
      * ```
-     * `@xl-soft/smartshell-io-deno/payments`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getCashPaymentsByPhone(phone: string) {
         const users = await this.api.getUsersByQuery(phone)
@@ -662,9 +676,9 @@ export default class SmartShell {
      * Returns all user payments with deposit by phone
      * 
      * ``` ts
-     *  const response = await shell.getDepositPaymentsByPhone('79999999999')
+     * console.log(await shell.getDepositPaymentsByPhone('79999999999'))
      * ```
-     * `@xl-soft/smartshell-io-deno/payments`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getDepositPaymentsByPhone(phone: string) {
         const users = await this.api.getUsersByQuery(phone)
@@ -679,9 +693,9 @@ export default class SmartShell {
      * Returns all user payments with bonus by phone
      * 
      * ``` ts
-     *  const response = await shell.getBonusPaymentsByPhone('79999999999')
+     * console.log(await shell.getBonusPaymentsByPhone('79999999999'))
      * ```
-     * `@xl-soft/smartshell-io-deno/payments`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getBonusPaymentsByPhone(phone: string) {
         const users = await this.api.getUsersByQuery(phone)
@@ -698,9 +712,9 @@ export default class SmartShell {
      * Returns all shifts on current club
      * 
      * ``` ts
-     *  const response = await shell.getShifts()
+     * console.log(await shell.getShifts())
      * ```
-     * `@xl-soft/smartshell-io-deno/shifts`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getShifts() {
         return await this.api.getShifts()
@@ -712,9 +726,9 @@ export default class SmartShell {
      * Returns all shifts by staff phone number
      * 
      * ``` ts
-     *  const response = await shell.getShiftsByPhone('79999999999')
+     * console.log(await shell.getShiftsByPhone('79999999999'))
      * ```
-     * `@xl-soft/smartshell-io-deno/shifts`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getShiftsByPhone(phone: string) {
         const shifts = await this.api.getShifts()
@@ -727,9 +741,9 @@ export default class SmartShell {
      * Returns shift with specific id
      * 
      * ``` ts
-     *  const response = await shell.getShiftById(639126)
+     * console.log(await shell.getShiftById(639126))
      * ```
-     * `@xl-soft/smartshell-io-deno/shifts`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getShiftById(id: number) {
         const shifts = await this.api.getShifts()
@@ -742,9 +756,9 @@ export default class SmartShell {
      * Returns last shift (not current)
      * 
      * ``` ts
-     *  const response = await shell.getLastShift()
+     * console.log(await shell.getLastShift())
      * ```
-     * `@xl-soft/smartshell-io-deno/shifts`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getLastShift() {
         const shift = await this.api.getShifts()
@@ -757,9 +771,9 @@ export default class SmartShell {
      * Returns last shift (not current) by staff phone number
      * 
      * ``` ts
-     *  const response = await shell.getLastShiftByPhone('79999999999')
+     * console.log(await shell.getLastShiftByPhone('79999999999'))
      * ```
-     * `@xl-soft/smartshell-io-deno/shifts`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getLastShiftByPhone(phone: string) {
         const shifts = await this.api.getShifts()
@@ -773,9 +787,9 @@ export default class SmartShell {
      * Returns current active shift
      * 
      * ``` ts
-     *  const response = await shell.getActiveShift()
+     * console.log(await shell.getActiveShift())
      * ```
-     * `@xl-soft/smartshell-io-deno/shifts`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getActiveShift() {
         return await this.api.getActiveShift()
@@ -789,9 +803,9 @@ export default class SmartShell {
      * Returns all tasks from dashboard
      * 
      * ``` ts
-     *  const response = await shell.getTasks()
+     * console.log(await shell.getTasks())
      * ```
-     * `@xl-soft/smartshell-io-deno/tasks`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getTasks() {
         return await this.api.getTasks()
@@ -803,9 +817,9 @@ export default class SmartShell {
      * Returns all finished tasks from dashboard
      * 
      * ``` ts
-     *  const response = await shell.getFinishedTasks()
+     * console.log(await shell.getFinishedTasks())
      * ```
-     * `@xl-soft/smartshell-io-deno/tasks`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getFinishedTasks() {
         const tasks = await this.api.getTasks()
@@ -818,7 +832,7 @@ export default class SmartShell {
      * Returns all active (unfinished) tasks from dashboard
      * 
      * ``` ts
-     *  const response = await shell.getActiveTasks()
+     * console.log(await shell.getActiveTasks())
      * ```
      * `@xl-soft/smartshell-io-deno/task`
      */
@@ -836,9 +850,9 @@ export default class SmartShell {
      * 
      * ### *БЕЗУМНО МОЖНО БЫТЬ ПЕРВЫМ...*
      * ``` ts
-     *  const response = await shell.getVersion()
+     * console.log(await shell.getVersion())
      * ```
-     * `@xl-soft/smartshell-io-deno/utils`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getVersion() {
         return await this.api.getVersion()
@@ -850,44 +864,14 @@ export default class SmartShell {
      * Returns club currency setting
      * 
      * ``` ts
-     *  const response = await shell.getCurrency()
+     * console.log(await shell.getCurrency())
      * ```
-     * `@xl-soft/smartshell-io-deno/utils`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getCurrency() {
         return await this.api.getCurrency()
     }
 
-    private getCurrent(timezoneOffset: Timezone, tomorrow = false): string {
-        const date = new Date();
-        if (tomorrow == true) date.setDate(date.getDate() + 1)
-        const localTimezoneOffset = date.getTimezoneOffset() * 60;
-        const targetTimezoneOffset = timezoneOffset * 3600;
-        const targetTime = date.getTime() + (targetTimezoneOffset - localTimezoneOffset) * 1000;
-        const targetDate = new Date(targetTime);
-        const year = targetDate.getUTCFullYear();
-        const month = String(targetDate.getUTCMonth() + 1).padStart(2, "0");
-        const day = String(targetDate.getUTCDate()).padStart(2, "0");
-        const hours = String(targetDate.getUTCHours()).padStart(2, "0");
-        const minutes = String(targetDate.getUTCMinutes()).padStart(2, "0");
-        const seconds = String(targetDate.getUTCSeconds()).padStart(2, "0");
-        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
-
-    public getDate(date: DateAndNotations = 'TODAY', time: Time = 'CURRENT', zone: Timezone = 0) {
-        let datestr: DateAndNotations | string = date
-        let timestr: DateAndNotations | string = time
-        if (date === 'TODAY') {
-            datestr = this.getCurrent(zone || 0).split(' ')[0]
-        }
-        if (date === 'TOMORROW') {
-            datestr = this.getCurrent(zone || 0, true).split(' ')[0]
-        }
-        if (time === 'CURRENT') {
-            timestr = this.getCurrent(zone || 0).split(' ')[1]
-        }
-        return `${datestr} ${timestr}`
-    }
     // * ---------------------------- Hosts ----------------------------
 
     /**
@@ -896,9 +880,9 @@ export default class SmartShell {
      * Returns all club hosts
      * 
      * ``` ts
-     *  const response = await shell.getHosts()
+     * console.log(await shell.getHosts())
      * ```
-     * `@xl-soft/smartshell-io-deno/hosts`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getHosts() {
         return await this.api.getHosts()
@@ -906,14 +890,14 @@ export default class SmartShell {
 
 
     /**
-     * # ``
+     * # `getHostByName()`
      * 
      * Returns specific host by host name
      * 
      * ``` ts
-     *  const response = await shell.getHostByName('PC-24')
+     * console.log(await shell.getHostByName('PC-24'))
      * ```
-     * `@xl-soft/smartshell-io-deno/hosts`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getHostByName(name: string) {
         const hosts = await this.api.getHosts()
@@ -927,9 +911,9 @@ export default class SmartShell {
      * Returns host information by host name
      * 
      * ``` ts
-     *  const response = await shell.getHostInfoByName('PC-24')
+     * console.log(await shell.getHostInfoByName('PC-24'))
      * ```
-     * `@xl-soft/smartshell-io-deno/hosts`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getHostInfoByName(name: string) {
         const hosts = await this.api.getHosts()
@@ -943,9 +927,9 @@ export default class SmartShell {
      * Returns host counters by host name 
      * 
      * ``` ts
-     *  const response = await shell.getHostCountersByName('PC-24')
+     * console.log(await shell.getHostCountersByName('PC-24'))
      * ```
-     * `@xl-soft/smartshell-io-deno/hosts`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getHostCountersByName(name: string) {
         const hosts = await this.api.getHosts()
@@ -959,14 +943,14 @@ export default class SmartShell {
      * Returns host disk info by host name 
      * 
      * ``` ts
-     *  const response = await shell.getHostDisksByName('PC-24')
+     * console.log(await shell.getHostDisksByName('PC-24'))
      * ```
-     * `@xl-soft/smartshell-io-deno/hosts`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getHostDisksByName(name: string) {
         const hosts = await this.api.getHosts()
         const host = hosts.find(o => o.alias === name);
-        return host?.counters.disk_status
+        return host?.counters!.disk_status
     }
 
     /**
@@ -975,9 +959,9 @@ export default class SmartShell {
      * Returns host last comment by host name 
      * 
      * ``` ts
-     *  const response = await shell.getHostLastCommentByName('PC-24')
+     * console.log(await shell.getHostLastCommentByName('PC-24'))
      * ```
-     * `@xl-soft/smartshell-io-deno/hosts`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getHostLastCommentByName(name: string) {
         const hosts = await this.api.getHosts()
@@ -991,9 +975,9 @@ export default class SmartShell {
      * Returns host id by host name 
      * 
      * ``` ts
-     *  const response = await shell.getHostIdByName('PC-24')
+     * console.log(await shell.getHostIdByName('PC-24'))
      * ```
-     * `@xl-soft/smartshell-io-deno/hosts`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getHostIdByName(name: string) {
         const hosts = await this.api.getHosts()
@@ -1007,9 +991,9 @@ export default class SmartShell {
      * Returns free hosts info
      * 
      * ``` ts
-     *  const response = await shell.getFreeHosts()
+     * console.log(await shell.getFreeHosts())
      * ```
-     * `@xl-soft/smartshell-io-deno/hosts`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getFreeHosts() {
         const hosts = await this.api.getHosts()
@@ -1022,9 +1006,9 @@ export default class SmartShell {
      * Returns free hosts count
      * 
      * ``` ts
-     *  const response = await shell.getFreeHostsCount()
+     * console.log(await shell.getFreeHostsCount())
      * ```
-     * `@xl-soft/smartshell-io-deno/hosts`
+     * `@xl-soft/smartshell-io-deno/`
      */
     public async getFreeHostsCount() {
         const hosts = await this.api.getHosts()
@@ -1032,7 +1016,7 @@ export default class SmartShell {
         return filtred.length
     }
 
-
+    // * ---------------------------- Booking ----------------------------
 
 }
 
