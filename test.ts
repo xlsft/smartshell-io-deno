@@ -8,6 +8,8 @@ const shell = await new SmartShell({
     club_id: Number(env['club_id'])
 })
 
+
+
 console.log('[[[call]]]')
 console.log(await shell.api.call(`
   query UserClubs {
