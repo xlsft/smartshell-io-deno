@@ -838,74 +838,45 @@ export class Api {
   }
 
   /**
-   * # `api.getHosts()`
+   * # `api.setDeposit()`
    *
-   * GraphQL api call with auth header for getting users club user hosts array
+   * GraphQL api call with auth header for setting users deposit
    *
    * ``` ts
-   * console.log(await shell.api.getHosts())
-   * ```
-   * 
-   * ``` bash
-   * 
-   * ```
-   * `@xl-soft/smartshell-io-deno/api`
-   */
+  * console.log(await shell.api.setDeposit("bfebe037-294e-41f3-852c-bcc5a5fa3534", 500))
+  * ```
+  * `@xl-soft/smartshell-io-deno/api`
+  */
 
-  public async getHostss(): Promise<Array<Host>> {
-    const response = await this.call(`
-        query Hosts {
-            hosts {
-                id
-                group_id
-                type_id
-                position
-                alias
-                comment
-                mac_addr
-                ip_addr
-                dns_name
-                coord_x
-                coord_y
-                is_deleted
-                in_service
-                created_at
-                shell_mode
-                last_online
-                online
-                device_has_changed
-                device_updated_at
-                locked
-                admin_called_at
-                info {
-                    processor
-                    ram
-                    video
-                    disc
-                    shell_version
-                }
-                counters {
-                    cpu_temp
-                    disk_temp
-                    active_window
-                    disk_status {
-                        letter
-                        total
-                        used
-                    }
-                }
-                sessions {
-                    id
-                    started_at
-                    finished_at
-                    alias
-                    user {
-                        phone
-                    }
-                }
+  public async setDeposit(uuid: string, value: number): Promise<void> {
+    await this.call(`
+        mutation SetDeposit {
+            setDeposit(input: { client_uuid: "${uuid}", value: ${value} }) {
+                deposit
             }
-        }        
-        `);
-    return response.data.hosts;
+        }
+    `);
   }
+
+    /**
+   * # `api.createComment()`
+   *
+   * GraphQL api call with auth header for creating comment on user
+   *
+   * ``` ts
+    * console.log(await shell.api.createComment(666666, 'Comment text'))
+    * ```
+    * `@xl-soft/smartshell-io-deno/api`
+    */
+  
+    public async createComment(id: number, text: string): Promise<void> {
+      await this.call(`
+        mutation CreateComment {
+            createComment(input: { text: "${text}", type: CLIENT, entity_id: ${id} }) {
+                data
+            }
+        }
+      `);
+    }
+
 }

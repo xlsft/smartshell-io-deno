@@ -152,7 +152,7 @@ export default class SmartShell {
      * console.log(await shell.getServices())
      * ```
      * `@xl-soft/smartshell-io-deno/`
-     */  
+     */
     public async getServices() {
         return await this.api.getServices()
     }
@@ -214,7 +214,7 @@ export default class SmartShell {
      * `@xl-soft/smartshell-io-deno/`
      */
     public async getPromocodeByName(name: string) {
-        const promos =  await this.api.getPromocodes()
+        const promos = await this.api.getPromocodes()
         return promos.find(o => o.code === name);
     }
 
@@ -232,7 +232,7 @@ export default class SmartShell {
      * ```
      * `@xl-soft/smartshell-io-deno/`
      */
-    public async getStat(        
+    public async getStat(
         fromdate: DateAndNotations = '1970-01-01',
         fromtime: Time = '00:00:00',
         todate: DateAndNotations = 'TODAY',
@@ -253,7 +253,7 @@ export default class SmartShell {
      * ```
      * `@xl-soft/smartshell-io-deno/`
      */
-    public async getGoodsStat(        
+    public async getGoodsStat(
         fromdate: DateAndNotations = '1970-01-01',
         fromtime: Time = '00:00:00',
         todate: DateAndNotations = 'TODAY',
@@ -396,7 +396,7 @@ export default class SmartShell {
     }
 
     // * ---------------------------- Content ----------------------------
-    
+
     /**
      * # `getApps()`
      * 
@@ -409,7 +409,7 @@ export default class SmartShell {
      */
     public async getApps() {
         const shortcuts = await this.api.getShortcuts()
-        return shortcuts.filter(o => { return o.type === "APPLICATION";});
+        return shortcuts.filter(o => { return o.type === "APPLICATION"; });
     }
 
     /**
@@ -424,7 +424,7 @@ export default class SmartShell {
      */
     public async getAppByName(name: string) {
         const shortcuts = await this.api.getShortcuts()
-        const filtred = shortcuts.filter(o => { return o.type === "APPLICATION";});
+        const filtred = shortcuts.filter(o => { return o.type === "APPLICATION"; });
         return filtred.find(o => o.title === name);
     }
 
@@ -456,7 +456,7 @@ export default class SmartShell {
      */
     public async getGames() {
         const shortcuts = await this.api.getShortcuts()
-        return shortcuts.filter(o => { return o.type === "GAME";});
+        return shortcuts.filter(o => { return o.type === "GAME"; });
     }
 
     /**
@@ -471,7 +471,7 @@ export default class SmartShell {
      */
     public async getGameByName(name: string) {
         const shortcuts = await this.api.getShortcuts()
-        const filtred = shortcuts.filter(o => { return o.type === "GAME";});
+        const filtred = shortcuts.filter(o => { return o.type === "GAME"; });
         return filtred.find(o => o.title === name);
     }
 
@@ -649,7 +649,7 @@ export default class SmartShell {
     public async getCardPaymentsByPhone(phone: string) {
         const users = await this.api.getUsersByQuery(phone)
         const payments = await this.api.getPayments(users[0].uuid)
-        const filtred = payments.filter(o => { return o.paymentMethod == "CARD";});
+        const filtred = payments.filter(o => { return o.paymentMethod == "CARD"; });
         return filtred
     }
 
@@ -666,7 +666,7 @@ export default class SmartShell {
     public async getCashPaymentsByPhone(phone: string) {
         const users = await this.api.getUsersByQuery(phone)
         const payments = await this.api.getPayments(users[0].uuid)
-        const filtred = payments.filter(o => { return o.paymentMethod == "CASH";});
+        const filtred = payments.filter(o => { return o.paymentMethod == "CASH"; });
         return filtred
     }
 
@@ -683,7 +683,7 @@ export default class SmartShell {
     public async getDepositPaymentsByPhone(phone: string) {
         const users = await this.api.getUsersByQuery(phone)
         const payments = await this.api.getPayments(users[0].uuid)
-        const filtred = payments.filter(o => { return o.paymentMethod == "DEPOSIT";});
+        const filtred = payments.filter(o => { return o.paymentMethod == "DEPOSIT"; });
         return filtred
     }
 
@@ -700,7 +700,7 @@ export default class SmartShell {
     public async getBonusPaymentsByPhone(phone: string) {
         const users = await this.api.getUsersByQuery(phone)
         const payments = await this.api.getPayments(users[0].uuid)
-        const filtred = payments.filter(o => { return o.paymentMethod == "BONUS";});
+        const filtred = payments.filter(o => { return o.paymentMethod == "BONUS"; });
         return filtred
     }
 
@@ -732,7 +732,7 @@ export default class SmartShell {
      */
     public async getShiftsByPhone(phone: string) {
         const shifts = await this.api.getShifts()
-        return shifts.filter(o => { return o.worker.phone === phone;})
+        return shifts.filter(o => { return o.worker.phone === phone; })
     }
 
     /**
@@ -777,7 +777,7 @@ export default class SmartShell {
      */
     public async getLastShiftByPhone(phone: string) {
         const shifts = await this.api.getShifts()
-        const shift = shifts.filter(o => { return o.worker.phone === phone;})
+        const shift = shifts.filter(o => { return o.worker.phone === phone; })
         return shift[0]
     }
 
@@ -823,7 +823,7 @@ export default class SmartShell {
      */
     public async getFinishedTasks() {
         const tasks = await this.api.getTasks()
-        return tasks.filter(o => { return o.finished_at !== null;})
+        return tasks.filter(o => { return o.finished_at !== null; })
     }
 
     /**
@@ -838,7 +838,7 @@ export default class SmartShell {
      */
     public async getActiveTasks() {
         const tasks = await this.api.getTasks()
-        return tasks.filter(o => { return o.finished_at === null;})
+        return tasks.filter(o => { return o.finished_at === null; })
     }
 
     // * ---------------------------- Utils ----------------------------
@@ -997,7 +997,7 @@ export default class SmartShell {
      */
     public async getFreeHosts() {
         const hosts = await this.api.getHosts()
-        return hosts.filter(o => { return !o.sessions[0] || o.sessions[0].user === null})
+        return hosts.filter(o => { return !o.sessions[0] || o.sessions[0].user === null })
     }
 
     /**
@@ -1012,11 +1012,62 @@ export default class SmartShell {
      */
     public async getFreeHostsCount() {
         const hosts = await this.api.getHosts()
-        const filtred = hosts.filter(o => { return !o.sessions[0] || o.sessions[0].user === null})
+        const filtred = hosts.filter(o => { return !o.sessions[0] || o.sessions[0].user === null })
         return filtred.length
     }
 
-    // * ---------------------------- Booking ----------------------------
+    // * ---------------------------- Deposit ----------------------------
+
+    /**
+     * # `setDepositByPhone()`
+    * 
+    * Returns boolean
+    * 
+    * ``` ts
+    * console.log(await shell.setDepositByPhone('79999999999', 500))
+    * ```
+    * `@xl-soft/smartshell-io-deno/`
+    */
+    public async setDepositByPhone(phone: string, ammount: number): Promise<boolean> {
+        const users = await this.api.getUsersByQuery(phone)
+        if (users.length === 0) return false
+        await this.api.setDeposit(users[0].uuid, ammount)
+        return true
+    }
+
+    /**
+    * # `increaseDepositByPhone()`
+    * 
+    * Returns boolean
+    * 
+    * ``` ts
+    * console.log(await shell.increaseDepositByPhone('79999999999', 500))
+    * ```
+    * `@xl-soft/smartshell-io-deno/`
+    */
+    public async increaseDepositByPhone(phone: string, ammount: number): Promise<boolean> {
+        const users = await this.api.getUsersByQuery(phone)
+        if (users.length === 0) return false
+        await this.api.setDeposit(users[0].uuid, users[0].deposit+ammount)
+        return true
+    }
+
+    /**
+    * # `createClientCommentByPhone()`
+    * 
+    * Returns free hosts count
+    * 
+    * ``` ts
+    * console.log(await shell.createClientCommentByPhone('79999999999', 'Comment text'))
+    * ```
+    * `@xl-soft/smartshell-io-deno/`
+    */
+    public async createClientCommentByPhone(phone: string, text: string): Promise<boolean> {
+        const users = await this.api.getUsersByQuery(phone)
+        if (users.length === 0) return false
+        await this.api.createComment(users[0].id, text)
+        return true
+    }
 
 }
 
