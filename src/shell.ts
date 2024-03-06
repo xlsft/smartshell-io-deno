@@ -632,6 +632,7 @@ export default class SmartShell {
      */
     public async getPaymentsByPhone(phone: string) {
         const users = await this.api.getUsersByQuery(phone)
+        if (users.length === 0) return []
         const payments = await this.api.getPayments(users[0].uuid)
         return payments
     }
@@ -648,6 +649,7 @@ export default class SmartShell {
      */
     public async getCardPaymentsByPhone(phone: string) {
         const users = await this.api.getUsersByQuery(phone)
+        if (users.length === 0) return []
         const payments = await this.api.getPayments(users[0].uuid)
         const filtred = payments.filter(o => { return o.paymentMethod == "CARD"; });
         return filtred
@@ -665,6 +667,7 @@ export default class SmartShell {
      */
     public async getCashPaymentsByPhone(phone: string) {
         const users = await this.api.getUsersByQuery(phone)
+        if (users.length === 0) return []
         const payments = await this.api.getPayments(users[0].uuid)
         const filtred = payments.filter(o => { return o.paymentMethod == "CASH"; });
         return filtred
@@ -682,6 +685,7 @@ export default class SmartShell {
      */
     public async getDepositPaymentsByPhone(phone: string) {
         const users = await this.api.getUsersByQuery(phone)
+        if (users.length === 0) return []
         const payments = await this.api.getPayments(users[0].uuid)
         const filtred = payments.filter(o => { return o.paymentMethod == "DEPOSIT"; });
         return filtred
@@ -699,6 +703,7 @@ export default class SmartShell {
      */
     public async getBonusPaymentsByPhone(phone: string) {
         const users = await this.api.getUsersByQuery(phone)
+        if (users.length === 0) return []
         const payments = await this.api.getPayments(users[0].uuid)
         const filtred = payments.filter(o => { return o.paymentMethod == "BONUS"; });
         return filtred
