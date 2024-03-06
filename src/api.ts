@@ -609,7 +609,6 @@ export class Api {
                         payment_id
                         combo_id
                         type
-                        entity
                         amount
                         sum
                     }
