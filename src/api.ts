@@ -604,6 +604,7 @@ export class Api {
                     sum
                     is_refunded
                     paymentMethod
+                    items
                 }
             }
         }       
