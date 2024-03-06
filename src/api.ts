@@ -604,7 +604,15 @@ export class Api {
                     sum
                     is_refunded
                     paymentMethod
-                    items
+                    items {
+                        id
+                        payment_id
+                        combo_id
+                        type
+                        entity
+                        amount
+                        sum
+                    }
                 }
             }
         }       
